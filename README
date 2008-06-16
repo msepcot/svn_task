@@ -1,0 +1,42 @@
+Rails SVN Tasks
+===============
+
+Rails SVN Tasks comes from my frustration of setting up new Ruby on Rails 
+projects in Subversion and having to deal with setting up the initial project 
+to exclude the right files and set up all of the directory propsets. With 
+this plugin, all I have to do is run "rake svn:setup" and all the grunt work 
+is taken care of for me. More information at:
+
+http://www.sepcot.com/blog/2008/04/svn-rake-tasks-1
+
+Working on projects with multiple people has lead me to like tests a lot :-)
+Since we don't currently have a Continuous Integration server at my work, I 
+took a cue from a co-worker of mine and use custom SVN tasks to simulate CI. 
+One simple command and I can ensure all my local files are added or removed 
+from Subversion, I'm updated to the most recent code, and all my tests pass 
+before a single file gets checked in. More information at:
+
+http://www.sepcot.com/blog/2008/05/svn-rake-tasks-2
+
+
+Example
+=======
+
+rake svn:commit m="message"
+---------------------------
+
+Commit files to the Subversion repository. This task will perform svn:add and 
+svn:delete to get a complete commit, and svn:update to get the latest code, 
+check for conflicts, and run our rake tests to ensure a clean commit.
+
+rake svn:update
+---------------
+
+Update files from the Subversion repository, raises an error if conflicts 
+(svn status 'C') were found that could not be merged (svn status 'G'). If the 
+svn up goes well, we rake the database if needed and run our test suite to 
+ensure everything is kosher.
+
+
+Copyright (c) 2008 Michael J. Sepcot (michael.sepcot@gmail.com), released 
+under the MIT license
